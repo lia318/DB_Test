@@ -81,7 +81,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center" >
+        android:gravity="center"
+        android:background="#69a7f9">
 
         <EditText
             android:id="@+id/edit_result_name"
@@ -93,7 +94,9 @@
             android:id="@+id/edit_result_count"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:lines="13"
+            android:enabled="false"/>
 
     </LinearLayout>
 
