@@ -1,6 +1,7 @@
 package kr.hs.lia318e_mirim.db_test;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
@@ -48,6 +49,20 @@ public class MainActivity extends AppCompatActivity {
                 sqlDB.execSQL(sql);
                 sqlDB.close();
                 Toast.makeText(MainActivity.this, "저장됨", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        but_select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sqlDB = myHelper.getReadableDatabase();
+                String sql = "select * from idolTable";
+                Cursor cursor = sqlDB.rawQuery(sql, null); // 반환하는 값 : 결과행에 있는 데이터 사용을 위해 Cursor 필요
+                String names = "Idol Name"+"\r\n"+"==================="+"\r\n"; // \r : 커서를 첫번째?로 이동
+                String counts = "Idol Count"+"\r\n"+"==================="+"\r\n";
+                while(cursor.moveToNext()){
+
+                }
             }
         });
     } // end of onCreate
