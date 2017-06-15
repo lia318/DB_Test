@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
                 sqlDB.execSQL(sql);
                 sqlDB.close();
                 Toast.makeText(MainActivity.this, "저장됨", Toast.LENGTH_SHORT).show();
+
+                edit_group_name.setText("");
+                edit_group_count.setText("");
             }
         });
 
