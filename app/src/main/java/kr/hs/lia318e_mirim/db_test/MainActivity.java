@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     EditText edit_group_name, edit_group_count, edit_result_name, edit_result_count;
-    Button but_init, but_insert, but_select, but_updata;
+    Button but_init, but_insert, but_select, but_updata, but_delete;
     MyDBHelper myHelper;
     SQLiteDatabase sqlDB;
 
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         but_insert = (Button) findViewById(R.id.but_insert);
         but_select = (Button) findViewById(R.id.but_select);
         but_updata = (Button) findViewById(R.id.but_updata);
+        but_delete = (Button) findViewById(R.id.but_delete);
         edit_result_name = (EditText) findViewById(R.id.edit_result_name);
         edit_result_count = (EditText) findViewById(R.id.edit_result_count);
 
@@ -83,12 +84,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sqlDB = myHelper.getWritableDatabase();
-                String sql = "updata idolTable set idolCount = "+edit_group_count.getText()+" where idolName = '"+edit_group_name.getText()+"'";
+                String sql = "update idolTable set idolCount = "+edit_group_count.getText()+" where idolName = '"+edit_group_name.getText()+"'";
                 // 두번째 ""에서 공백 필수
-
                 sqlDB.execSQL(sql);
                 sqlDB.close();
                 Toast.makeText(MainActivity.this, "수정됨", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // 데이터 삭제
+        but_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sqlDB = myHelper.getWritableDatabase();
+                String sql = "delete from idolTable where idolName = '"+edit_group_name.getText()+"'";
+                // 두번째 ""에서 공백 필수
+                sqlDB.execSQL(sql);
+                sqlDB.close();
+                Toast.makeText(MainActivity.this, "삭제됨", Toast.LENGTH_SHORT).show();
             }
         });
     } // end of onCreate
