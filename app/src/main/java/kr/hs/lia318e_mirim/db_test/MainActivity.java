@@ -61,8 +61,14 @@ public class MainActivity extends AppCompatActivity {
                 String names = "Idol Name"+"\r\n"+"==================="+"\r\n"; // \r : 커서를 첫번째?로 이동
                 String counts = "Idol Count"+"\r\n"+"==================="+"\r\n";
                 while(cursor.moveToNext()){
-
+                    names += cursor.getString(0) + "\r\n";
+                    counts += cursor.getInt(1) + "\r\n"; // 자료형에 맞춰서 반환
                 }
+                edit_result_name.setText(names);
+                edit_result_count.setText(counts);
+
+                cursor.close();
+                sqlDB.close();
             }
         });
     } // end of onCreate
