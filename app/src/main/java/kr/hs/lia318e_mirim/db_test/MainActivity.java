@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override // 이미 idolTable라는 Table 존재 시 기존 Table 삭제 후 새로 Table을 만들 때 사용
         public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int ii) {
-            String sql = "drop table if exist idolTable";
+            String sql = "drop table if exists idolTable";
             sqLiteDatabase.execSQL(sql);
             onCreate(sqLiteDatabase);
         }
