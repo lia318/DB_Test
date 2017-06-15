@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     EditText edit_group_name, edit_group_count, edit_result_name, edit_result_count;
-    Button but_init, but_insert, but_select;
+    Button but_init, but_insert, but_select, but_updata;
     MyDBHelper myHelper;
     SQLiteDatabase sqlDB;
 
@@ -26,12 +26,13 @@ public class MainActivity extends AppCompatActivity {
         but_init = (Button) findViewById(R.id.but_init);
         but_insert = (Button) findViewById(R.id.but_insert);
         but_select = (Button) findViewById(R.id.but_select);
+        but_updata = (Button) findViewById(R.id.but_updata);
         edit_result_name = (EditText) findViewById(R.id.edit_result_name);
         edit_result_count = (EditText) findViewById(R.id.edit_result_count);
 
         // DB 생성
-        myHelper = new MyDBHelper(this);
-        // 기존의 테이블이 존재하면 삭제하고 테이블을 새로 생성한다.
+        myHelper = new MyDBHelper(this); // 기존의 테이블이 존재하면 삭제하고 테이블을 새로 생성한다.
+
         but_init.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // 데이터 삽입
         but_insert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // 데이터를 조회
         but_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +75,20 @@ public class MainActivity extends AppCompatActivity {
 
                 cursor.close();
                 sqlDB.close();
+            }
+        });
+
+        // 데이터 수정
+        but_updata.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sqlDB = myHelper.getWritableDatabase();
+                String sql = "updata idolTable set idolCount = "+edit_group_count.getText()+" where idolName = '"+edit_group_name.getText()+"'";
+                // 두번째 ""에서 공백 필수
+
+                sqlDB.execSQL(sql);
+                sqlDB.close();
+                Toast.makeText(MainActivity.this, "수정됨", Toast.LENGTH_SHORT).show();
             }
         });
     } // end of onCreate
